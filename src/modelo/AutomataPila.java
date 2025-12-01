@@ -36,9 +36,6 @@ public class AutomataPila {
         this.F = F;
     }
 
-    /**
-     * Simula la ejecución del AP con una cadena de entrada.
-     */
     public boolean simularCadena(String cadena, StringBuilder logBuffer) {
         logBuffer.setLength(0);
         logBuffer.append("--- INICIO DE SIMULACIÓN AP (Aceptación por F y Pila Vacía) ---\n");
@@ -48,7 +45,6 @@ public class AutomataPila {
         Stack<String> pilaInicial = new Stack<>();
 
         // LÓGICA DE PILA VACÍA: Solo inicializa la pila con Z0 si Z0 NO es LAMBDA
-        // Esto permite cumplir con el requisito de tu clase donde la pila inicia vacía.
         if (!Z0.trim().isEmpty() && !Z0.equals(LAMBDA)) {
             logBuffer.append("Símbolo Inicial de Pila (Z0): ").append(Z0).append(". Pila inicial: [").append(Z0).append("]\n");
             pilaInicial.push(Z0);
@@ -148,12 +144,6 @@ public class AutomataPila {
         return false;
     }
 
-    /**
-     * Parsea la cadena de texto de transiciones a la estructura de datos Delta.
-     * SOPORTA DOS FORMATOS:
-     * 1. Clásico: q,a,X=p,YZ
-     * 2. Formato de tu Clase: (q,a,X)(p,YZ)
-     */
     public static Map<String, Set<TransicionAP>> parseRawTransiciones(String rawTransiciones,
                                                                       Set<String> estados, Set<String> alfabeto, Set<String> alfabetoPila) {
         Map<String, Set<TransicionAP>> delta = new HashMap<>();
@@ -164,7 +154,6 @@ public class AutomataPila {
             String trimmedLine = line.trim();
             if (trimmedLine.isEmpty()) continue;
 
-            // --- ADAPTACIÓN DE FORMATO (q,a,X)(p,Y) ---
             // Detectar si usa el formato de paréntesis y convertirlo internamente
             if (trimmedLine.startsWith("(") && trimmedLine.endsWith(")")) {
                 // Reemplazar la unión central ")( " o ")(" por "="
@@ -201,8 +190,6 @@ public class AutomataPila {
                     throw new IllegalArgumentException("Símbolo de entrada '" + a + "' no está en Σ.");
                 }
 
-                // NOTA IMPORTANTE: Permitimos que X sea lambda aunque no esté en el alfabeto de pila
-                // para soportar el comportamiento de "wildcard" (no mirar la pila).
                 if (!X.equals(lambda) && !alfabetoPila.contains(X)) {
                     throw new IllegalArgumentException("Símbolo de pila '" + X + "' no está en Γ.");
                 }
