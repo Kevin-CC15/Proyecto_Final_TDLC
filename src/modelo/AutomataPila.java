@@ -95,7 +95,6 @@ public class AutomataPila {
                 boolean matchSpecificPop = !simboloTope.equals(LAMBDA) && !pila.isEmpty() && pila.peek().equals(simboloTope);
 
                 // 2. Coincidencia λ (X = λ): Significa "no me importa el tope de la pila" o "la pila debe estar vacía".
-                // IMPORTANTE: En tu clase esto significa "no hacer pop", simplemente ignorar la pila.
                 boolean matchLambdaPop = simboloTope.equals(LAMBDA);
 
                 // La transición es aplicable si hay coincidencia específica o si no requiere tope específico (matchLambdaPop)
